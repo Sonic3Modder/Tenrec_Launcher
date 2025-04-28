@@ -39,10 +39,16 @@ class ToplevelWindow(customtkinter.CTkToplevel):
                                                     corner_radius=10)
             TopLevelImageLabel.pack(padx=20, pady=20)
             
+            current_dir = os.path.dirname(__file__)
+            HogGamePath = os.path.join(current_dir, "HogGame.exe")
+
+
         if GameFolderIfDir.exists():
             print(f"Game directory found at: {GameFolderIfDir}")
             try:
-                subprocess.Popen(["HogGame.exe"], cwd=GameFolderIfDir)
+                GameOpen = subprocess.Popen([HogGamePath], cwd=GameFolderIfDir, shell=True)
+                if GameOpen.returncode == 0:
+                    self.quit()
             except FileNotFoundError:
                 print("HogGame.exe not found in the game directory.")
                 self.quit()
