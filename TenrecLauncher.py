@@ -111,7 +111,7 @@ class App(customtkinter.CTk):
         LabelAbout.pack(padx=10, pady=150, fill="both", expand=True)
 
         dropdown = CustomDropdownMenu(widget=button)
-        dropdown.add_option(option="Quit", command=self.destroy) 
+        dropdown.add_option(option="Quit", command=self.quit_app) 
         dropdown.add_separator() 
 
         self.toplevel_window = None
@@ -121,6 +121,11 @@ class App(customtkinter.CTk):
             self.toplevel_window = ToplevelWindow(self) 
         else:
             self.toplevel_window.focus()
+    
+    def quit_app(self):
+        # Clean way to quit the app without triggering the CTkMenuBar error
+        self.quit()
+        self.destroy()
 
 app = App()
 app.mainloop()
